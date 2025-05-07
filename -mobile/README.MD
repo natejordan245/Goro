@@ -63,10 +63,17 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
   - Integration with Bedrock (Claude Instant)
   - JSON extraction from LLM responses
   - Exercise name matching against standardized list
-- [ ] Needs Refinement:
+- [x] Recent Improvements:
+  - Added support for bodyweight exercises (weight = 0)
+  - Fixed validation to handle partial workout data
+  - Improved error handling and response structure
+  - Added uppercase standardization for exercise names
+- [ ] Future Enhancements:
   - Implement conversational memory
-  - Add follow-up questions for missing parameters
-  - Improve extraction reliability
+  - Add support for multiple exercises in a single message
+  - Add exercise grouping and workout session tracking
+  - Add support for rest periods between exercises
+  - Add support for exercise order and sequence
 
 ### Deployment Infrastructure
 - [x] Lambda Layer
@@ -97,6 +104,27 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
 - [ ] parse-workout Lambda needs improvement for conversational flow
 - [ ] Need to complete API Gateway setup
 - [ ] Frontend development to begin
+
+## Recent Progress (May 7, 2024)
+### parse-workout Lambda Improvements
+- [x] Enhanced workout data validation
+  - Added support for bodyweight exercises (weight = 0)
+  - Improved handling of partial workout data
+  - Fixed validation logic to properly handle missing fields
+- [x] Code Quality Improvements
+  - Removed unused variables
+  - Improved error handling
+  - Enhanced logging for debugging
+- [x] Documentation Updates
+  - Added comprehensive future improvements section
+  - Updated input/output format documentation
+  - Added support for multiple exercises in roadmap
+
+### Current Focus
+- [ ] Implementing conversational flow for incomplete workout data
+- [ ] Adding support for multiple exercises in a single message
+- [ ] Improving exercise name standardization
+- [ ] Enhancing error handling and user feedback
 
 # Part 2: Project Schedule & Upcoming Tasks
 
