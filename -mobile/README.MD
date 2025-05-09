@@ -57,6 +57,9 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
   - Comprehensive error handling
   - Consistent response format
   - Python 3.10+ features (match statements)
+- [x] Compatibility
+  - Support for both camelCase and snake_case parameter names
+  - JSON serialization handling for Decimal types
 
 #### parse-workout
 - [x] Basic Implementation
@@ -69,11 +72,41 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
   - Improved error handling and response structure
   - Added uppercase standardization for exercise names
 - [ ] Future Enhancements:
-  - Implement conversational memory
+  - Improve parsing accuracy and consistency
   - Add support for multiple exercises in a single message
   - Add exercise grouping and workout session tracking
   - Add support for rest periods between exercises
   - Add support for exercise order and sequence
+
+### API Gateway
+- [x] REST API Setup
+  - Created new REST API
+  - Configured endpoints:
+    - POST `/submitWorkout`
+    - GET `/getWorkouts`
+  - Enabled CORS
+  - Set up request/response integration
+  - Deployed to dev stage
+
+### Testing Infrastructure
+- [x] Comprehensive Test Suite
+  - Created modular test organization with shared fixtures
+  - Unit tests for all Lambda functions (57 tests total)
+  - Tests for all success and error paths
+  - Mocked AWS services (DynamoDB, Lambda, Bedrock)
+- [x] Test Utilities
+  - `conftest.py` with shared fixtures and configurations
+  - Dynamic module importing across Lambda directories
+  - Test runners with optional coverage and filtering
+  - Environment setup and cleanup
+- [x] DynamoDB Testing
+  - Mock tables with proper indexes
+  - Sample data population
+  - Decimal handling for numeric types
+- [x] Lambda Integration Tests
+  - Tests for cross-Lambda interactions
+  - API validation and error handling
+  - Input/output format verification
 
 ### Deployment Infrastructure
 - [x] Lambda Layer
@@ -84,14 +117,38 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
   - Moved to dedicated bat_scripts directory
   - Refactored for better maintainability
   - Enhanced error handling and reporting
+- [x] Test Runners
+  - Python script with customizable options
+  - Windows batch file for easy execution
+  - Support for running specific Lambda tests
 
-## Recent Progress (April 2024)
+## Recent Progress (May 2024)
 ### Infrastructure Improvements
 - [x] Restructured DynamoDB data model with GSIs for efficient queries
 - [x] Optimized Lambda functions for performance and code quality
 - [x] Enhanced error handling and input validation
 - [x] Added comprehensive documentation with input/output schemas
 - [x] Implemented best practices for AWS resource usage
+- [x] Set up API Gateway with REST endpoints
+- [x] Fixed JSON serialization issues for Decimal types
+- [x] Created comprehensive test suite for all Lambda functions
+
+### Code Refactoring
+- [x] Implemented proper separation of concerns (repository/service/handler pattern)
+- [x] Standardized response formats across all Lambda functions
+- [x] Created utility modules for shared functionality
+- [x] Enhanced error handling with detailed error messages
+- [x] Improved module organization with clean imports
+- [x] Added proper type annotations throughout the codebase
+- [x] Standardized logging patterns for better observability
+
+### Testing Infrastructure
+- [x] Implemented pytest fixtures for mocking AWS services
+- [x] Created dynamic module importing for cross-Lambda tests
+- [x] Added test runners with filtering capabilities
+- [x] Fixed import path issues for module dependencies
+- [x] Added proper handling of DynamoDB Decimal types
+- [x] Implemented test helpers for common operations
 
 ### Technical Achievements
 - [x] Designed efficient querying patterns for workout data
@@ -99,74 +156,60 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
 - [x] Implemented personal record tracking and progress measurement
 - [x] Structured modular codebase with clear separation of concerns
 - [x] Added future improvement roadmaps to all components
+- [x] Built comprehensive test coverage for all code paths
+
+### Current Approach
+- [x] Decision to implement conversation state on client-side
+  - Simplified backend architecture
+  - Reduced AWS costs and complexity
+  - Better performance and offline capabilities
+  - Enhanced privacy with sensitive data on device
 
 ### Current Issues
-- [ ] parse-workout Lambda needs improvement for conversational flow
-- [ ] Need to complete API Gateway setup
+- [ ] parse-workout Lambda needs improvement for parsing accuracy
+- [ ] Need to implement WebSocket API for real-time chat
 - [ ] Frontend development to begin
-
-## Recent Progress (May 7, 2024)
-### parse-workout Lambda Improvements
-- [x] Enhanced workout data validation
-  - Added support for bodyweight exercises (weight = 0)
-  - Improved handling of partial workout data
-  - Fixed validation logic to properly handle missing fields
-- [x] Code Quality Improvements
-  - Removed unused variables
-  - Improved error handling
-  - Enhanced logging for debugging
-- [x] Documentation Updates
-  - Added comprehensive future improvements section
-  - Updated input/output format documentation
-  - Added support for multiple exercises in roadmap
-
-### Current Focus
-- [ ] Implementing conversational flow for incomplete workout data
-- [ ] Adding support for multiple exercises in a single message
-- [ ] Improving exercise name standardization
-- [ ] Enhancing error handling and user feedback
 
 # Part 2: Project Schedule & Upcoming Tasks
 
-## Week 1: Remaining Core Architecture
-- [ ] API Gateway Setup
-  - Create new REST API
-  - Configure endpoints:
-    - POST `/submitWorkout`
-    - GET `/getWorkouts`
-  - Enable CORS
-  - Set up request/response models
-
-- [ ] Bedrock Integration
-  - Configure IAM roles
-  - Select Claude model
-  - Test basic prompts
-  - Create `parse-workout` Lambda
+## Immediate Next Steps
+- [ ] WebSocket API Setup
+  - Create WebSocket API in API Gateway
+  - Implement connect/disconnect handlers
+  - Create message routing
+  - Integrate with parse-workout Lambda
 
 - [ ] Frontend Foundation
   - Initialize React Native with expo
   - Set up navigation
   - Create base screens
-  - Add chat input UI
+  - Implement chat interface
+  - Build state management for conversation flow
 
-## Week 2: Chatbot Intelligence & Data Flow
-### Chatbot Enhancement
-- [ ] Implement Conversation Flow
-- [ ] Frontend Chat UI
-- [ ] Data Integration
-- [ ] History View Implementation
+- [ ] Testing Enhancements
+  - Add integration tests for WebSocket API
+  - Create end-to-end testing framework
+  - Add load testing for Lambda functions
+  - Create mocks for frontend testing
 
-## Week 3: Polish & Features
-### Core Features
-- [ ] End-to-End Testing
-- [ ] Error Recovery
-- [ ] UI Polish
-- [ ] History View Enhancement
+## Later Tasks
+- [ ] Complete Chat Implementation
+  - Build client-side conversation state management
+  - Implement follow-up question generation
+  - Create UI for chat history
+  - Connect to WebSocket API
 
-### Optional Stretch Goals
-- [ ] Progress Charts
+- [ ] Workout History & Visualization
+  - Implement workout history view
+  - Create progress charts
+  - Add personal record tracking
+  - Build filtering and sorting options
+
+## Optional Stretch Goals
 - [ ] User Authentication
 - [ ] Push Notifications
+- [ ] Workout Templates
+- [ ] Export & Sharing Features
 
 # Part 3: AI Assistant Guidelines
 
@@ -200,6 +243,9 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
    - Provide success case tests
    - Include edge case tests
    - Document expected responses
+   - Use pytest fixtures for AWS service mocking
+   - Ensure proper handling of DynamoDB Decimal types
+   - Test all error handling paths
 
 ## AWS Best Practices
 1. IAM Permissions
@@ -211,6 +257,8 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
    - Handle reserved keywords
    - Use expression attributes
    - Optimize query efficiency
+   - Use Decimal types for numeric values
+   - Create appropriate indexes for query patterns
 
 3. Error Handling
    - Use specific AWS exceptions
@@ -218,7 +266,7 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
    - Implement proper logging
 
 ## Documentation Requirements
-1. Update plan.md with:
+1. Update README.MD with:
    - Completed tasks
    - Requirement changes
    - New features
@@ -228,8 +276,9 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
    - Success scenarios
    - Error cases
    - Edge cases
+   - Mocking approach
 
-## Recent Progress (March 25, 2024)
+## Recent Progress 
 ### Infrastructure Improvements
 - [x] Created and configured parse-workout Lambda function
 - [x] Set up shared Lambda Layer (version 7) for all functions
@@ -238,6 +287,10 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
   - Updated deploy.bat to only deploy lambda_function.py
 - [x] Configured Bedrock access with Titan Text Lite model
 - [x] Set up IAM roles and permissions
+- [x] Built comprehensive test suite for all Lambda functions
+  - 57 tests covering all components and error paths
+  - Shared fixtures for AWS service mocking
+  - Customizable test runners
 
 ### Current Issues
 - [ ] parse-workout Lambda having inconsistent parsing results
@@ -253,11 +306,27 @@ A fitness chatbot app for tracking Progressive Overload using React Native, AWS 
   user: "1"
   ```
 
-### Next Steps
-- [ ] Implement stateful conversation handling
-  - Store conversation state in DynamoDB
-  - Track missing workout parameters
-  - Handle follow-up questions
-- [ ] Improve workout parsing reliability
-- [ ] Test conversation flows
-- [ ] Set up WebSocket API for real-time chat
+### Next Steps for Future AI Assistants
+1. **WebSocket Implementation**
+   - Create WebSocket API in API Gateway
+   - Implement connection management Lambda
+   - Build message routing system
+   - Connect to existing Lambda functions
+
+2. **Frontend Development**
+   - Set up React Native project structure
+   - Create chat interface components
+   - Implement WebSocket connection handling
+   - Build state management for chat history
+
+3. **Test Suite Expansion**
+   - Add WebSocket API tests
+   - Create frontend component tests
+   - Implement end-to-end testing framework
+   - Add performance testing
+
+4. **Conversation Flow Improvement**
+   - Enhance parse-workout to better handle partial data
+   - Implement stateful conversation tracking
+   - Create follow-up question generation
+   - Add support for multiple exercises in a single conversation
